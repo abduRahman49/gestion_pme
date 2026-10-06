@@ -1,0 +1,31 @@
+{% extends "gestion/base.html" %}
+{% block title %}{{ client.nom }} - Gestion PME{% endblock %}
+{% block content %}
+<h1>{{ client.nom }}</h1>
+<p>Courriel : {{ client.email|default:"Non renseigné" }}</p>
+<p>Téléphone : {{ client.telephone|default:"Non renseigné" }}</p>
+{% if perms.gestion.change_client %}
+  <p><a href="{% url 'gestion:modifier_client' client.pk %}">Modifier le client</a></p>
+{% endif %}
+{% if perms.gestion.delete_client %}
+  <p><a href="{% url 'gestion:supprimer_client' client.pk %}">Supprimer le client</a></p>
+{% endif %}
+<h2>Prestations</h2>
+<ul>
+  {% for prestation in client.prestations.all %}
+    <li>
+      {{ prestation.libelle }} - {{ prestation.date|date:"d/m/Y" }} -
+      {{ prestation.montant }} FCFA - {{ prestation.get_statut_display }}
+      {% if perms.gestion.change_prestation %}
+        <a href="{% url 'gestion:modifier_prestation' prestation.pk %}">Modifier {{ prestation.libelle }}</a>
+      {% endif %}
+      {% if perms.gestion.delete_prestation %}
+        <a href="{% url 'gestion:supprimer_prestation' prestation.pk %}">Supprimer {{ prestation.libelle }}</a>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>Aucune prestation pour ce client.</li>
+  {% endfor %}
+</ul>
+<p><a href="{% url 'gestion:liste_clients' %}">Retour aux clients</a></p>
+{% endblock %}

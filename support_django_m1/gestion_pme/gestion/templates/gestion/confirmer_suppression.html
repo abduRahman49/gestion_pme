@@ -1,0 +1,11 @@
+{% extends "gestion/base.html" %}
+{% block title %}Confirmer la suppression - Gestion PME{% endblock %}
+{% block content %}
+<h1>Confirmer la suppression</h1>
+<p>Supprimer définitivement « {{ objet }} » ?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit">Confirmer la suppression</button>
+</form>
+<p><a href="{% url 'gestion:liste_clients' %}">Annuler</a></p>
+{% endblock %}

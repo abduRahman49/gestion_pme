@@ -1,0 +1,29 @@
+{% extends "gestion/base.html" %}
+{% block title %}Clients - Gestion PME{% endblock %}
+{% block content %}
+<h1>Clients</h1>
+<form method="get">
+  <label for="recherche">Nom du client</label>
+  <input id="recherche" type="search" name="q" value="{{ q }}">
+  <button type="submit">Rechercher</button>
+</form>
+{% if perms.gestion.add_client %}
+  <p><a href="{% url 'gestion:creer_client' %}">Nouveau client</a></p>
+{% endif %}
+<ul>
+  {% for client in page %}
+    <li><a href="{% url 'gestion:detail_client' client.pk %}">{{ client.nom }}</a></li>
+  {% empty %}
+    <li>Aucun client ne correspond à la recherche.</li>
+  {% endfor %}
+</ul>
+<nav aria-label="Pagination">
+  {% if page.has_previous %}
+    <a href="?q={{ q|urlencode }}&amp;page={{ page.previous_page_number }}">Précédent</a>
+  {% endif %}
+  <span>Page {{ page.number }} sur {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}
+    <a href="?q={{ q|urlencode }}&amp;page={{ page.next_page_number }}">Suivant</a>
+  {% endif %}
+</nav>
+{% endblock %}

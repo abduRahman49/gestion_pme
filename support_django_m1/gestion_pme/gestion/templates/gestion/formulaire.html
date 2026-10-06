@@ -1,0 +1,11 @@
+{% extends "gestion/base.html" %}
+{% block title %}{{ titre }} - Gestion PME{% endblock %}
+{% block content %}
+<h1>{{ titre }}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Enregistrer</button>
+</form>
+<p><a href="{% url 'gestion:liste_clients' %}">Retour aux clients</a></p>
+{% endblock %}

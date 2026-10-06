@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Gestion PME{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'gestion/style.css' %}">
+</head>
+<body>
+  <header>
+    <strong>Gestion PME</strong>
+    {% if user.is_authenticated %}
+      <nav aria-label="Navigation principale">
+        <a href="{% url 'gestion:tableau_bord' %}">Tableau de bord</a>
+        <a href="{% url 'gestion:liste_clients' %}">Clients</a>
+        {% if perms.gestion.add_prestation %}
+          <a href="{% url 'gestion:creer_prestation' %}">Nouvelle prestation</a>
+        {% endif %}
+      </nav>
+      <p>Connecté : {{ user.username }}</p>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Se déconnecter</button>
+      </form>
+    {% endif %}
+  </header>
+  <main id="contenu">
+    {% for message in messages %}
+      <p role="status" class="message">{{ message }}</p>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

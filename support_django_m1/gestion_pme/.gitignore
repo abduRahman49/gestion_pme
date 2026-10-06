@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+staticfiles/
+../../cours_initiation_django.out
+../../cours_initiation_django.pdf
+../../cours_initiation_django.tex
+../../cours_initiation_django.toc
+../../tmp/

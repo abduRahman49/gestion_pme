@@ -1,0 +1,11 @@
+{% extends "gestion/base.html" %}
+{% block title %}Connexion - Gestion PME{% endblock %}
+{% block content %}
+<h1>Connexion</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="hidden" name="next" value="{{ next }}">
+  <button type="submit">Se connecter</button>
+</form>
+{% endblock %}
