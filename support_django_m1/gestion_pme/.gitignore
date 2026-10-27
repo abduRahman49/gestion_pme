@@ -4,8 +4,11 @@ __pycache__/
 db.sqlite3
 .env
 staticfiles/
+../../cours_initiation_django.aux
+../../cours_initiation_django.log
 ../../cours_initiation_django.out
 ../../cours_initiation_django.pdf
 ../../cours_initiation_django.tex
 ../../cours_initiation_django.toc
+../../output/
 ../../tmp/
